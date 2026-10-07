@@ -17,7 +17,24 @@ const SIGN_OUT_PATH = "/signout-with-chatgpt";
 const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
-  const requestHeaders = await headers();
+  let requestHeaders;
+
+  try {
+    requestHeaders = await headers();
+  } catch (error) {
+    // StackBlitz/Vite does not provide the ChatGPT hosting request context.
+    // This development identity is never enabled in production.
+    if (process.env.NODE_ENV !== "production") {
+      return {
+        displayName: "NeighborWell Developer",
+        email: "developer@neighborwell.local",
+        fullName: "NeighborWell Developer",
+      };
+    }
+
+    throw error;
+  }
+
   const email = requestHeaders.get(USER_EMAIL_HEADER);
   if (!email) return null;
 
@@ -46,12 +63,12 @@ export async function requireChatGPTUser(
 
 export function chatGPTSignInPath(returnTo: string): string {
   const safeReturnTo = safeRelativeReturnPath(returnTo);
-  return `${SIGN_IN_PATH}?return_to=${encodeURIComponent(safeReturnTo)}`;
+  return SIGN_IN_PATH + "?return_to=" + encodeURIComponent(safeReturnTo);
 }
 
 export function chatGPTSignOutPath(returnTo = "/"): string {
   const safeReturnTo = safeRelativeReturnPath(returnTo);
-  return `${SIGN_OUT_PATH}?return_to=${encodeURIComponent(safeReturnTo)}`;
+  return SIGN_OUT_PATH + "?return_to=" + encodeURIComponent(safeReturnTo);
 }
 
 function safeRelativeReturnPath(value: string): string {
@@ -66,7 +83,7 @@ function safeRelativeReturnPath(value: string): string {
   if (url.origin !== "https://app.local") return "/";
   if (isReservedAuthPath(url.pathname)) return "/";
 
-  return `${url.pathname}${url.search}${url.hash}`;
+  return url.pathname + url.search + url.hash;
 }
 
 function isReservedAuthPath(pathname: string): boolean {
