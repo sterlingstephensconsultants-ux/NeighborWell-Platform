@@ -236,3 +236,162 @@ export const auditReceipts = sqliteTable(
     uniqueIndex("audit_receipt_hash_unique").on(t.receiptHash),
   ],
 );
+
+export const assignmentHistory = sqliteTable(
+  "assignment_history",
+  {
+    id: text("id").primaryKey(),
+    referralId: text("referral_id")
+      .notNull()
+      .references(() => referrals.id),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    previousMembershipId: text("previous_membership_id").references(
+      () => memberships.id,
+    ),
+    assignedMembershipId: text("assigned_membership_id").references(
+      () => memberships.id,
+    ),
+    changedByUserId: text("changed_by_user_id")
+      .notNull()
+      .references(() => users.id),
+    reason: text("reason").notNull(),
+    effectiveAt: text("effective_at").notNull(),
+    endedAt: text("ended_at"),
+    ...timestamps,
+  },
+  (t) => [
+    index("assignment_history_referral_idx").on(t.referralId),
+    index("assignment_history_org_idx").on(t.organizationId),
+  ],
+);
+
+export const accessReviews = sqliteTable(
+  "access_reviews",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    membershipId: text("membership_id")
+      .notNull()
+      .references(() => memberships.id),
+    reviewerUserId: text("reviewer_user_id")
+      .notNull()
+      .references(() => users.id),
+    decision: text("decision").notNull(),
+    reason: text("reason").notNull(),
+    reviewedAt: text("reviewed_at").notNull(),
+    nextReviewAt: text("next_review_at").notNull(),
+    ...timestamps,
+  },
+  (t) => [
+    index("access_reviews_org_idx").on(t.organizationId),
+    index("access_reviews_membership_idx").on(t.membershipId),
+  ],
+);
+
+export const securitySessions = sqliteTable(
+  "security_sessions",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").notNull().references(() => users.id),
+    tokenHash: text("token_hash").notNull(),
+    assuranceLevel: text("assurance_level").notNull().default("standard"),
+    authenticatedAt: text("authenticated_at").notNull(),
+    lastSeenAt: text("last_seen_at").notNull(),
+    expiresAt: text("expires_at").notNull(),
+    revokedAt: text("revoked_at"),
+    revocationReason: text("revocation_reason"),
+    ...timestamps,
+  },
+  (t) => [
+    uniqueIndex("security_sessions_token_unique").on(t.tokenHash),
+    index("security_sessions_user_idx").on(t.userId),
+  ],
+);
+
+export const rateLimitBuckets = sqliteTable(
+  "rate_limit_buckets",
+  {
+    id: text("id").primaryKey(),
+    subjectHash: text("subject_hash").notNull(),
+    operation: text("operation").notNull(),
+    windowStartedAt: text("window_started_at").notNull(),
+    requestCount: integer("request_count").notNull().default(0),
+    blockedUntil: text("blocked_until"),
+    ...timestamps,
+  },
+  (t) => [
+    uniqueIndex("rate_limit_subject_operation_unique").on(
+      t.subjectHash,
+      t.operation,
+    ),
+  ],
+);
+
+export const recoveryRequests = sqliteTable(
+  "recovery_requests",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id").references(() => organizations.id),
+    subjectType: text("subject_type").notNull(),
+    subjectId: text("subject_id").notNull(),
+    requestedByUserId: text("requested_by_user_id")
+      .notNull()
+      .references(() => users.id),
+    reason: text("reason").notNull(),
+    status: text("status").notNull().default("pending"),
+    requestedAt: text("requested_at").notNull(),
+    expiresAt: text("expires_at").notNull(),
+    executedAt: text("executed_at"),
+    ...timestamps,
+  },
+  (t) => [index("recovery_requests_subject_idx").on(t.subjectType, t.subjectId)],
+);
+
+export const recoveryApprovals = sqliteTable(
+  "recovery_approvals",
+  {
+    id: text("id").primaryKey(),
+    recoveryRequestId: text("recovery_request_id")
+      .notNull()
+      .references(() => recoveryRequests.id),
+    approverUserId: text("approver_user_id")
+      .notNull()
+      .references(() => users.id),
+    decision: text("decision").notNull(),
+    rationale: text("rationale").notNull(),
+    decidedAt: text("decided_at").notNull(),
+    ...timestamps,
+  },
+  (t) => [
+    uniqueIndex("recovery_approval_request_approver_unique").on(
+      t.recoveryRequestId,
+      t.approverUserId,
+    ),
+  ],
+);
+
+export const securityAlerts = sqliteTable(
+  "security_alerts",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id").references(() => organizations.id),
+    actorUserId: text("actor_user_id").references(() => users.id),
+    category: text("category").notNull(),
+    severity: text("severity").notNull(),
+    status: text("status").notNull().default("open"),
+    summary: text("summary").notNull(),
+    evidenceJson: text("evidence_json").notNull().default("{}"),
+    detectedAt: text("detected_at").notNull(),
+    acknowledgedAt: text("acknowledged_at"),
+    resolvedAt: text("resolved_at"),
+    ...timestamps,
+  },
+  (t) => [
+    index("security_alerts_status_idx").on(t.status, t.severity),
+    index("security_alerts_actor_idx").on(t.actorUserId),
+  ],
+);

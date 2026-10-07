@@ -42,7 +42,7 @@ NeighborWell remains an independent participant-centered resource platform. It a
 
 The engine returns a stable decision code, human-readable reason, evaluated controls, and policy version. API responses may expose a safe decision code but must not reveal sensitive record details.
 
-## Current Phase 1 integration
+## Implemented integration
 
 - Product-neutral permission registry and authorization engine
 - NeighborWell role and action matrix
@@ -52,12 +52,16 @@ The engine returns a stable decision code, human-readable reason, evaluated cont
 - Participant document-download enforcement
 - Provider document-download enforcement
 - Automated authorization tests for ownership, cross-organization access, assignment, consent, account status, scope, and quarantine
+- Durable assignment history and periodic access-review records
+- Revocable sessions with idle expiration and recent strong reauthentication gates
+- Durable rate-limit buckets with deterministic retry behavior
+- Two-person administrative recovery with separation of duties
+- Security-alert records and detection for cross-tenant attempts, revoked sessions, and rate-limit abuse
+- Cross-control lifecycle tests and an operational incident-response runbook
 
-## Next implementation phases
+## Remaining deployment gates
 
-1. Apply the engine to enrollment, consent, referral, provider-list, administrative, export, and reporting endpoints.
-2. Add explicit staff assignment history and access-review records.
-3. Add session revocation, reauthentication for sensitive actions, and rate limiting.
-4. Add administrative recovery with two-person approval and immutable restoration receipts.
-5. Add cross-tenant integration tests and security-event monitoring.
-6. Complete threat modeling, privacy impact assessment, penetration testing, and incident-response exercises before real participant deployment.
+1. Wire lifecycle controls to the production identity provider and administrative APIs.
+2. Apply the authorization engine to future referral, export, reporting, and recovery endpoints as they are introduced.
+3. Configure centralized alert delivery and on-call ownership.
+4. Complete threat modeling, privacy impact assessment, penetration testing, backup restoration, and incident-response exercises before real participant deployment.
