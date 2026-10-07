@@ -1,0 +1,596 @@
+:root {
+  --n: #102a43;
+  --b: #1d5f8a;
+  --t: #2a9d8f;
+  --g: #e9c46a;
+  --p: #f4f7f6;
+  --i: #193247;
+  --m: #647988;
+  --l: #dbe4e7;
+  --r: #b85c72;
+}
+* {
+  box-sizing: border-box;
+}
+.admin-shell {
+  min-height: 100vh;
+  background: var(--p);
+  color: var(--i);
+  font-family: Arial, sans-serif;
+}
+.admin-top {
+  height: 76px;
+  background: #fff;
+  border-bottom: 1px solid var(--l);
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  gap: 18px;
+}
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--n);
+  margin-right: auto;
+}
+.admin-brand b {
+  display: block;
+  font:
+    24px Georgia,
+    serif;
+  letter-spacing: 2px;
+}
+.admin-brand small {
+  display: block;
+  font-size: 10px;
+  color: var(--m);
+}
+.admin-top > a:not(.admin-brand) {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--b);
+  text-decoration: none;
+}
+.admin-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #edf8f5;
+  border: 1px solid #c8e7df;
+  border-radius: 9px;
+  padding: 8px 13px;
+}
+.admin-identity > i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--t);
+}
+.admin-identity small,
+.admin-identity b {
+  display: block;
+  font-size: 8px;
+}
+.admin-identity b {
+  font-size: 10px;
+}
+.admin-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+}
+.admin-nav {
+  min-height: calc(100vh - 76px);
+  background: var(--n);
+  padding: 25px 16px;
+  color: #fff;
+}
+.admin-role {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid #ffffff1f;
+  padding: 5px 8px 20px;
+}
+.admin-role > span {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #1e4a68;
+  color: var(--g);
+  display: grid;
+  place-items: center;
+}
+.admin-role b,
+.admin-role small {
+  display: block;
+  font-size: 10px;
+}
+.admin-role small {
+  color: #9eb2bf;
+  margin-top: 3px;
+}
+.admin-nav > p {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #91a9b9;
+  padding: 13px 10px 3px;
+}
+.admin-nav > button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #b8c9d4;
+  text-align: left;
+  padding: 11px;
+  border-radius: 8px;
+  margin: 2px 0;
+  display: grid;
+  grid-template-columns: 25px 1fr auto;
+  font-size: 10px;
+}
+.admin-nav > button.active {
+  background: #1e405b;
+  color: #fff;
+}
+.admin-nav em {
+  font-style: normal;
+  background: var(--r);
+  color: #fff;
+  border-radius: 10px;
+  padding: 2px 6px;
+}
+.boundary {
+  margin-top: 30px;
+  border: 1px solid #31536d;
+  border-radius: 11px;
+  padding: 15px;
+  background: #17364f;
+}
+.boundary b {
+  font:
+    13px Georgia,
+    serif;
+  color: var(--g);
+}
+.boundary p {
+  font-size: 9px;
+  line-height: 1.5;
+  color: #b8c9d4;
+}
+.admin-main {
+  padding: 40px;
+  max-width: 1380px;
+  width: 100%;
+  margin: auto;
+}
+.admin-heading p {
+  font-size: 9px;
+  color: var(--b);
+  letter-spacing: 1.5px;
+  font-weight: 900;
+}
+.admin-heading h1 {
+  font:
+    35px Georgia,
+    serif;
+  color: var(--n);
+  margin: 7px 0;
+}
+.admin-heading span {
+  font-size: 11px;
+  color: var(--m);
+}
+.posture {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: linear-gradient(100deg, #102a43, #1b4d66);
+  color: #fff;
+  border-radius: 13px;
+  padding: 18px 22px;
+  margin: 25px 0 12px;
+}
+.posture > div {
+  width: 58px;
+  height: 58px;
+  border: 4px solid #72d4c5;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+}
+.posture > div span {
+  font:
+    21px Georgia,
+    serif;
+}
+.posture p {
+  margin: 0;
+}
+.posture p b,
+.posture p small {
+  display: block;
+}
+.posture p b {
+  font:
+    17px Georgia,
+    serif;
+}
+.posture p small {
+  font-size: 8px;
+  color: #bdd0d4;
+}
+.posture > strong {
+  margin-left: auto;
+  font-size: 8px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  margin-bottom: 12px;
+}
+.metrics article,
+.card,
+.duties,
+.controls article,
+.queue,
+.roles article,
+.settings article,
+.verify > section,
+.verify > aside,
+.audit {
+  background: #fff;
+  border: 1px solid var(--l);
+  border-radius: 11px;
+}
+.metrics article {
+  padding: 14px;
+}
+.metrics small {
+  font-size: 7px;
+  color: var(--m);
+  font-weight: 900;
+}
+.metrics b {
+  font:
+    25px Georgia,
+    serif;
+  display: block;
+  margin: 7px 0;
+}
+.metrics em {
+  font-style: normal;
+  color: var(--t);
+  font-size: 8px;
+}
+.split,
+.verify {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 11px;
+}
+.card,
+.duties,
+.verify > section,
+.verify > aside {
+  padding: 18px;
+}
+.card h2,
+.duties h2,
+.verify h2,
+.queue h2 {
+  font:
+    17px Georgia,
+    serif;
+}
+.card article,
+.queue article,
+.verify section article {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  gap: 9px;
+  align-items: center;
+  border-top: 1px solid var(--l);
+  padding: 10px 0;
+}
+.card p,
+.queue p,
+.verify p {
+  margin: 0;
+}
+.card b,
+.card small,
+.queue b,
+.queue small,
+.verify b,
+.verify small {
+  display: block;
+  font-size: 9px;
+}
+.card small,
+.queue small,
+.verify small {
+  color: var(--m);
+  margin-top: 3px;
+}
+.card button,
+.queue button,
+.roles button,
+.settings button,
+.verify button,
+.audit button {
+  border: 0;
+  background: transparent;
+  color: var(--b);
+  font-size: 8px;
+  font-weight: 900;
+}
+.duties > small,
+.verify aside > small {
+  font-size: 7px;
+  color: var(--b);
+  font-weight: 900;
+}
+.duties p,
+.duties li {
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--m);
+}
+.controls {
+  display: grid;
+  gap: 10px;
+  margin-top: 25px;
+}
+.controls article {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 17px;
+}
+.controls article > span {
+  font-size: 21px;
+  color: var(--t);
+}
+.controls h2 {
+  font:
+    15px Georgia,
+    serif;
+  margin: 0;
+}
+.controls p {
+  font-size: 9px;
+  color: var(--m);
+}
+.controls button {
+  width: 42px;
+  height: 23px;
+  border: 0;
+  background: #bbc6c8;
+  border-radius: 20px;
+  padding: 3px;
+}
+.controls button i {
+  display: block;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #fff;
+}
+.controls button.on {
+  background: var(--t);
+}
+.controls button.on i {
+  margin-left: 19px;
+}
+.queue {
+  margin-top: 12px;
+  padding: 18px;
+}
+.queue article {
+  grid-template-columns: 65px 1fr auto;
+}
+.queue strong {
+  font-size: 8px;
+  color: var(--t);
+}
+.roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 25px;
+}
+.roles article {
+  overflow: hidden;
+}
+.roles header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 15px;
+}
+.roles header > span {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #e8f0f5;
+  color: var(--b);
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 900;
+}
+.roles h2 {
+  font:
+    15px Georgia,
+    serif;
+  margin: 0;
+}
+.roles header small {
+  font-size: 8px;
+  color: var(--m);
+}
+.roles header button {
+  margin-left: auto;
+}
+.roles article > div,
+.roles footer {
+  padding: 12px 15px;
+  border-top: 1px solid var(--l);
+}
+.roles b,
+.roles p {
+  font-size: 8px;
+}
+.roles p {
+  line-height: 1.5;
+  color: var(--m);
+}
+.roles footer {
+  background: #faf5f6;
+}
+.roles footer b {
+  color: var(--r);
+}
+.settings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 25px;
+}
+.settings article {
+  padding: 17px;
+}
+.settings article > span {
+  font-size: 20px;
+  color: var(--b);
+}
+.settings h2 {
+  font:
+    15px Georgia,
+    serif;
+}
+.settings p {
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--m);
+  min-height: 42px;
+}
+.verify {
+  margin-top: 25px;
+}
+.verify section article {
+  grid-template-columns: 25px 1fr auto;
+}
+.verify section article > span,
+.verify strong {
+  color: var(--t);
+  font-size: 8px;
+}
+.verify aside p {
+  border-top: 1px solid var(--l);
+  padding: 10px 0;
+}
+.verify aside button {
+  width: 100%;
+  background: var(--n);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+.audit {
+  margin-top: 25px;
+  overflow: hidden;
+}
+.audit > div {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+}
+.audit input {
+  flex: 1;
+  border: 1px solid var(--l);
+  border-radius: 8px;
+  padding: 10px;
+}
+.audit > div button {
+  background: var(--n);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+.audit article {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid var(--l);
+}
+.audit strong,
+.audit b,
+.audit small {
+  font-size: 8px;
+}
+.audit small {
+  display: block;
+  color: var(--m);
+}
+.admin-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: var(--n);
+  color: #fff;
+  border-radius: 9px;
+  padding: 12px 16px;
+  font-size: 9px;
+}
+@media (max-width: 950px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+  .admin-nav {
+    display: none;
+  }
+  .admin-main {
+    padding: 25px;
+  }
+  .split,
+  .verify {
+    grid-template-columns: 1fr;
+  }
+  .settings {
+    grid-template-columns: 1fr 1fr;
+  }
+  .admin-identity {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  .admin-top {
+    padding: 0 14px;
+  }
+  .admin-brand small {
+    display: none;
+  }
+  .metrics,
+  .roles,
+  .settings {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.deployment-plan {
+  margin: 0 0 16px;
+  border: 0;
+  border-radius: 9px;
+  background: #12383b;
+  color: #fff;
+  padding: 11px 15px;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}

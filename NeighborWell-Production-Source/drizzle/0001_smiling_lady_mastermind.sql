@@ -1,0 +1,1 @@
+ALTER TABLE `consent_grants` ADD `document_ids_json` text DEFAULT '[]' NOT NULL;
